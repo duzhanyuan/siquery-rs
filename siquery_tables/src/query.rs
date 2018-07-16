@@ -1,5 +1,5 @@
 
-pub use sys::{SystemInfo, SystemReader};
+pub use sys::{SystemReader};
 use sys::{SystemReaderInterface};
 
 use std::borrow::Borrow;
@@ -153,7 +153,7 @@ pub fn query_table(name: &str, columns: Vec<String>) -> Vec<Vec<String>> {
             select(&table, columns)
         },
         #[cfg(target_os = "windows")]
-        "wmi_bios" => {
+        "wmi_bios" => { //TODO double check data structure, is wmibios return a vector? why not
             let wmi_bios = WmiBios::get_specific(system_reader.borrow());
             let mut table: Vec<WmiBios> = Vec::new();
             table.push(wmi_bios);
